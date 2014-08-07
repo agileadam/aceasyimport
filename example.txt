@@ -1,0 +1,26 @@
+# This modeline will offer highlighting and folding improvements
+# vim: set ft=aceasyimport :
+
+# TODO here's a todo item
+
+My first project
+- This is a milestone and it's optional
+-- General task here
+-- This is another task
+--- And here's a subtask
+--- And how about another subtask
+
+Sell the house
+--Do pricing research
+---Create Zillow account
+--Find real estate agent p=2
+-Clean s=2013-10-02 d=2013-10-29
+--Clean attic a=5 l=6
+---Throw away as much as possible p=2
+---Donate clothes to Goodwill p=1
+--Clean basement
+--Clean shed
+- Paint
+-- Paint the upstairs bedrooms
+--- Master bedroom
+--- Kids bedroom

@@ -65,25 +65,26 @@ Note: only one date format is currently accepted: *YYYY-MM-DD*
 
 ## Import file example
 
-	# Import File Demo
-	# Blank lines are OK and may make it easy to visually separate projects and/or milestones
+![Example.txt](ftplugin_demo.png?raw=true)
 
-	My first project
-	--General milestone here
+##Vim syntax highlighting and folding
 
-	Sell the house
-	--Do pricing research
-	--Find real estate agent p=2
-	-Clean s=2013-10-02 d=2013-10-29
-	--Clean attic a=5 l=6
-	---Throw away as much as possible p=2
-	---Donate clothes to Goodwill p=1
-	--Clean basement
-	--Clean shed
-	- Paint
-	-- Paint the upstairs bedrooms
-	--- Master bedroom
-	--- Kids bedroom
+Do you notice the pretty colors and folding in the example screenshot above? You can get those too!
+
+If you edit your import files in Vim, I **strongly** encourage you to install the file type plugins I've made for the aceasyimport file type. You're probably saying, "I didn't realize there was a specific file type." Well, there isn't, really. I suggest saving your import files as *.txt* files.
+
+You'll find the plugin in the *vim* directory of the aceasyimport repo. You can either copy the files to the correct directories, or you can create symlinks (so that you can still git-pull any changes I make in the future).
+
+###Setup
+You should make the files accessible at the following locations:
+
+	~/.vim/ftplugin/aceasyimport.vim
+	~/.vim/syntax/aceasyimport.vim
+
+###Usage
+You can either run `set ft=aceasyimport` every time you open an import file, or simply add the following modeline to the top of your import scripts. The latter automatically enables the proper syntax highlighting and code folding I'm providing through the ftplugin:
+
+	# vim: set ft=aceasyimport :
 
 ##Future plans
 - Support more properties (e.g., other/secondary assignees)
