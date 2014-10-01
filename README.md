@@ -55,7 +55,9 @@ This script is called EasyImport for a reason! It's meant to be a very simple wa
 
 - Set assignee ID with: a=n (n = user id)
 - Set label ID with: l=n (n = label id)
-- Set priority with: p=n (n = -2, -1, 0, 1, or 2; 2 is "Highest" -2 is "Lowest")
+- Set priority with: p=n (n = -2, -1, 0, 1, or 2; 2 is "Highest", -2 is "Lowest")
+- Set visibility with: v=n (n = 0 or 1; 0 is "private", 1 is "public")
+    - if omitted, visibility will be 1 (public)
 - Set "start on" date with: s=YYYY-MM-DD
     - for milestones this defaults to *today* because it's required
 - Set "due on" date with: d=YYYY-MM-DD
