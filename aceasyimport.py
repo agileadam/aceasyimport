@@ -181,8 +181,8 @@ def find_subtask_by_name(search_name, subtasks):
 
 
 def create_milestone(project_id, name, attributes):
-    #valid_keys = ['name', 'body', 'start_on', 'priority',\
-    #             'assignee_id', 'other_assignees', 'due_on']
+    valid_keys = ['name', 'body', 'start_on', 'priority', \
+                 'assignee_id', 'other_assignees', 'due_on']
     data = dict()
     data['submitted'] = 'submitted'
     data['milestone[name]'] = name
@@ -197,14 +197,15 @@ def create_milestone(project_id, name, attributes):
     data['milestone[due_on]'] = end_date.strftime('%Y-%m-%d')
 
     for key, val in attributes.items():
-        data['milestone[' + key + ']'] = val
+        if key in valid_keys:
+            data['milestone[' + key + ']'] = val
     result = make_post_request('projects/%d/milestones/add' % project_id, data)
     return result
 
 
 def create_task(project_id, milestone_id, name, attributes):
-    #valid_keys = ['name', 'body', 'visibility', 'category_id', 'label_id', \
-    #              'milestone_id', 'priority', 'assignee_id', 'other_assignees', 'due_on']
+    valid_keys = ['name', 'body', 'visibility', 'category_id', 'label_id', \
+                 'milestone_id', 'priority', 'assignee_id', 'other_assignees', 'due_on']
     data = dict()
     data['submitted'] = 'submitted'
     data['task[name]'] = name
@@ -213,20 +214,22 @@ def create_task(project_id, milestone_id, name, attributes):
     if milestone_id <> 0:
         data['task[milestone_id]'] = milestone_id
     for key, val in attributes.items():
-        data['task[' + key + ']'] = val
+        if key in valid_keys:
+            data['task[' + key + ']'] = val
     result = make_post_request('projects/%d/tasks/add' % project_id, data)
     return result
 
 
 def create_subtask(project_id, task_id, name, attributes):
-    #valid_keys = ['body', 'assignee_id', 'priority', 'label_id', 'due_on']
+    valid_keys = ['body', 'assignee_id', 'priority', 'label_id', 'due_on']
     data = dict()
     data['submitted'] = 'submitted'
     data['subtask[body]'] = name
     data['subtask[priority]'] = 0
     data['subtask[label_id]'] = 0
     for key, val in attributes.items():
-        data['subtask[' + key + ']'] = val
+        if key in valid_keys:
+            data['subtask[' + key + ']'] = val
     result = make_post_request('projects/%d/tasks/%d/subtasks/add' %
                                (project_id, task_id), data)
     return result
