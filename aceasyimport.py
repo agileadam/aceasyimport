@@ -285,7 +285,7 @@ for line in lines:
 
     # Process any attributes for this line
     attributes = {}
-    matches = re.findall(' [alpsd]=[\d-]*', lineclean)
+    matches = re.findall(' [alpsvd]=[\d-]*', lineclean)
     if matches:
         for match in matches:
             # Separate the attribute key and its value
@@ -311,7 +311,7 @@ for line in lines:
                     attributes['start_on'] = start_date.strftime('%Y-%m-%d')
                 except Exception:
                     LOG.warning('Line %d - Wrong date format; could not set "start on" date for "%s"' % (i, lineclean))
-                    pass
+                    warning_count += 1
 
             if key == ' d':
                 try:
@@ -319,7 +319,15 @@ for line in lines:
                     attributes['due_on'] = end_date.strftime('%Y-%m-%d')
                 except Exception:
                     LOG.warning('Line %d - Wrong date format; could not set "due on" date for "%s"' % (i, lineclean))
-                    pass
+                    warning_count += 1
+
+            if key == ' v':
+                attributes['visibility'] = val
+                if int(attributes['visibility']) != 0 and int(attributes['visibility']) != 1:
+                    attributes['visibility'] = 1
+                    LOG.warning(
+                        'Line %d - Visibility must be 0 (private) or 1 (public). Setting visibility of 1 for "%s"' % (i, lineclean))
+                    warning_count += 1
 
             lineclean = lineclean.replace(match, '')
 

@@ -15,7 +15,7 @@ Sell the house
 ---Create Zillow account
 --Find real estate agent p=2
 -Clean s=2013-10-02 d=2013-10-29
---Clean attic a=5 l=6
+--Clean attic a=5 l=6 v=0
 ---Throw away as much as possible p=2
 ---Donate clothes to Goodwill p=1
 --Clean basement
