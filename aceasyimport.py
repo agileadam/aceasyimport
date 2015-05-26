@@ -8,8 +8,11 @@ import re
 import requests
 import sys
 
+
 api_token = ''
 api_url = ''
+verify_ssl = ''
+
 
 LOG = logging.getLogger(__name__)
 LOG.setLevel(logging.DEBUG)
@@ -37,6 +40,7 @@ configfile_path = os.path.join(os.path.expanduser('~'), '.aceasyimportconfig')
 def process_config(configfile_path):
     global api_token
     global api_url
+    global verify_ssl
 
     parser = SafeConfigParser()
     parser.read(configfile_path)
@@ -57,16 +61,22 @@ def process_config(configfile_path):
     else:
         api_token = potential_api_token
 
+    potential_verify_ssl = parser.getboolean('api_settings', 'verify_ssl')
+    if potential_verify_ssl == "":
+        verify_ssl = True
+    else:
+        verify_ssl = potential_verify_ssl
+
     if error_count > 0:
         sys.exit()
-
 
 def write_blank_config():
     try:
         with open(configfile_path, 'w') as configfile:
             configfile.write("[api_settings]\n")
             configfile.write("api_url = \n")
-            configfile.write("api_token = ")
+            configfile.write("api_token = \n")
+            configfile.write("verify_ssl = ")
     except IOError:
         # TODO provide instruction on config file
         LOG.error('Could not create template config file.')
@@ -89,7 +99,7 @@ def make_get_request(path_info, parameters=None):
     parameters['auth_api_token'] = api_token
     parameters['format'] = 'json'
     parameters['path_info'] = path_info
-    r = requests.get(api_url, params=parameters, verify=False)
+    r = requests.get(api_url, params=parameters, verify=verify_ssl)
     if r.status_code == requests.codes.ok:
         return r.json()
     else:
@@ -102,7 +112,7 @@ def make_post_request(path_info, data_payload, parameters=None):
     parameters['auth_api_token'] = api_token
     parameters['format'] = 'json'
     parameters['path_info'] = path_info
-    r = requests.post(api_url, params=parameters, data=data_payload, verify=False)
+    r = requests.post(api_url, params=parameters, data=data_payload, verify=True)
     if r.status_code == requests.codes.ok:
         return r.json()
     else:
