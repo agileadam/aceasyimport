@@ -14,6 +14,7 @@ EasyImport for Active Collab 3 makes it easy to import milestones, tasks, and su
 - Prevents duplicate tasks at the milestone-level, if milestone supplied (supports same-named task under multiple milestones)
 - Prevents duplicate subtasks at the task-level
 - Set label, priority, start on date, due on date, and assignee independently on each item (see *Future plans*)
+- By default with attemt to verify SSL Certs, but has a config setting to override this
 
 ##Usage
 
