@@ -6,13 +6,12 @@ import logging
 import os.path
 import re
 import requests
+from requests.packages import urllib3
 import sys
-
 
 api_token = ''
 api_url = ''
 verify_ssl = ''
-
 
 LOG = logging.getLogger(__name__)
 LOG.setLevel(logging.DEBUG)
@@ -30,7 +29,7 @@ ch.setLevel(logging.INFO)
 ch.setFormatter(formatter)
 LOG.addHandler(ch)
 
-parser = argparse.ArgumentParser(description='EasyImport for Active Collab 3', version='2.0', add_help=True)
+parser = argparse.ArgumentParser(description='EasyImport for Active Collab 3 / 4', version='2.0', add_help=True)
 parser.add_argument('inputfile', action="store", type=file)
 args = parser.parse_args()
 
@@ -66,6 +65,11 @@ def process_config(configfile_path):
         verify_ssl = True
     else:
         verify_ssl = potential_verify_ssl
+        # As of urllib3 1.9 we need to supress the HTTPS verification warning
+        try:
+            urllib3.disable_warnings()
+        except:
+            pass
 
     if error_count > 0:
         sys.exit()
@@ -112,7 +116,7 @@ def make_post_request(path_info, data_payload, parameters=None):
     parameters['auth_api_token'] = api_token
     parameters['format'] = 'json'
     parameters['path_info'] = path_info
-    r = requests.post(api_url, params=parameters, data=data_payload, verify=True)
+    r = requests.post(api_url, params=parameters, data=data_payload, verify=verify_ssl)
     if r.status_code == requests.codes.ok:
         return r.json()
     else:
