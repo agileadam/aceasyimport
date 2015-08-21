@@ -1,4 +1,4 @@
-EasyImport for Active Collab 3
+EasyImport for Active Collab 3 / 4
 =============
 
 ##Description
@@ -13,8 +13,8 @@ EasyImport for Active Collab 3 makes it easy to import milestones, tasks, and su
 - Prevents duplicate milestones at the project-level
 - Prevents duplicate tasks at the milestone-level, if milestone supplied (supports same-named task under multiple milestones)
 - Prevents duplicate subtasks at the task-level
-- Set label, priority, start on date, due on date, and assignee independently on each item (see *Future plans*)
-- By default with attemt to verify SSL Certs, but has a config setting to override this
+- Set label, priority, start on date, due on date, visibility and assignee independently on each item (see *Future plans*)
+- Optionally suppress SSL warnings through an `verify_ssl` configuration file parameter
 
 ##Usage
 
@@ -24,6 +24,8 @@ This script requires a configuration file. The script will automatically create 
 > [ WARN  ]   No config file found. Created a blank config file. Please edit /Users/adam/.aceasyimportconfig and try again.
 
 You must open this new file and add an API url (your Active Collab url) and an API token (find this in your Active Collab user profile).
+
+Tip: If you are getting SSL warnings (e.g., InsecureRequestWarning) you should be able to suppress these by setting `verify_ssl` to `false` or `0` in your config file.
 
 ###How to use the script
 Please run the script with `-h` to show how to use the script.
